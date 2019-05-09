@@ -1,0 +1,29 @@
+#include "DHT.h" //inclui na programação a biblioteca DHT.h
+
+#define DTHPIN A1 //define o pino de entrada do barramento como sendo A1
+#define DHTTYPE DHT11 //define o modelo de sensor da família DHT utilizado
+
+DHT dht(DHTPIN, DHTTYPE); //define os parâmetros base do circuito
+
+double temp; //define uma variável para armazenar a temperatura
+int saida = 9; //define a porta digital 9 como sendo um atuador arbitrário no exemplo
+
+void setup(){
+
+dht.begin();
+pinMode(saida, OUTPUT);
+
+}
+
+void loop(){
+
+temp = dht.readTemperatura(); //armazena em temp o valor de temperatura lido em °C
+
+if (temp > 25.00){ //aciona um periférico arbitrário caso a temperatura seja maior que 25.00°C
+digitalWrite(saida, HIGH);
+}
+
+else{ //caso a temperatura seja menor ou igual a 25.00°C
+digitalWrite(saida, LOW);
+}
+}
